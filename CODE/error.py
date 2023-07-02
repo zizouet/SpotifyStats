@@ -1,0 +1,2 @@
+class PreconditionNotMetError(Exception):
+    pass
