@@ -1,9 +1,13 @@
+"""
+This module generates a PDF report with the given Spotify data.
+"""
+
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer, Table
+from reportlab.platypus import (Image, Paragraph, SimpleDocTemplate, Spacer,
+                                Table)
 
-import data_analysis as da
 import data_visualization.time_of_day as dv
 import factoring_tools.df_formatting as df_format
 
@@ -21,11 +25,15 @@ def generate_pdf(
 
     Args:
         filename (String): path to save the file
-        most_listened_artist (pandas df, optional): array of the most listened artists. Defaults to None.
-        most_listened_album (pandas df, optional): array of the most listened albums. Defaults to None.
-        most_listened_song (pandas df, optional): array of the most listened songs. Defaults to None.
+        most_listened_artist (pandas df, optional):
+                         array of the most listened artists. Defaults to None.
+        most_listened_album (pandas df, optional):
+                         array of the most listened albums. Defaults to None.
+        most_listened_song (pandas df, optional):
+                         array of the most listened songs. Defaults to None.
         listening_time (Int, optional): Total Listening Time. Defaults to None.
-        listening_time_of_day (pandas df, optional): array of the time of day the user listened to music. Defaults to None.
+        listening_time_of_day (pandas df, optional):
+                         array of the time of day the user listened to music. Defaults to None.
         skipped_songs (pandas df, optional): array of the most skipped songs. Defaults to None.
 
     Returns:
@@ -60,15 +68,12 @@ def generate_pdf(
         elements, "10 Most Listened Artists", most_listened_artist, heading_style, ts
     )
     append_table(
-        elements, most_listened_album, "10 Most Listened Albums", heading_style, ts
+        elements, "10 Most Listened Albums", most_listened_album, heading_style, ts
     )
     append_table(
-        elements, most_listened_song, "10 Most Listened Songs", heading_style, ts
+        elements, "10 Most Listened Songs", most_listened_song, heading_style, ts
     )
-    append_table(elements, skipped_songs, "10 Most Skipped Songs", heading_style, ts)
-    append_table(
-        elements, "10 Most Listened Artists", most_listened_artist, heading_style, ts
-    )
+    append_table(elements, "10 Most Skipped Songs", skipped_songs, heading_style, ts)
 
     img = Image(dv.plot_filename, width=450, height=300)
     elements.append(img)

@@ -7,7 +7,7 @@ def main():
     main function to run the program.
     """
     # load data
-    df = loading_input.loading_data_from("data/Lina")
+    df = loading_input.loading_data_from("data/MesDatas")
     # check if data is loaded
     if df is None:
         print("No data to analyze")
