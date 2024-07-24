@@ -1,3 +1,5 @@
+""" Main module to run the program. """
+
 from data_analysis import data_analysis as data_analysis
 from input_handling import loading_input as loading_input
 

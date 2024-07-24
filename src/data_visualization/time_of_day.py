@@ -1,3 +1,7 @@
+""" 
+This module contains functions to plot the time of day the user listened to music.
+"""
+
 import matplotlib.pyplot as plt
 
 from factoring_tools import spotify_glossary as glossary

@@ -1,4 +1,8 @@
-# Description: This file contains the glossary of the Spotify data.
+"""
+This file contains the glossary of terms used in the Spotify dataset.
+"""
+
+
 ALBUM = "master_metadata_album_album_name"
 ARTIST = "master_metadata_album_artist_name"
 SONG = "master_metadata_track_name"

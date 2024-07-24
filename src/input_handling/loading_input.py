@@ -1,9 +1,14 @@
+"""
+This module loads the data from the data folder.
+"""
+
 import glob
 import os
 
 import pandas as pd
 
 from factoring_tools import spotify_glossary as glossary
+
 
 
 def loading_data_from(folder_path):

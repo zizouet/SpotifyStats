@@ -1,3 +1,7 @@
+"""
+This module contains functions to format time data.
+"""
+
 from datetime import datetime
 
 

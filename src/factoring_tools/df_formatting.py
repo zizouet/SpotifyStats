@@ -1,3 +1,7 @@
+"""
+This module contains functions to format dataframes to lists of lists. 
+"""
+
 def df_to_list_of_list(df, index=True, header=True):
     """This function converts a pandas dataframe to a list of list.
     Index keeps the index of the dataframe

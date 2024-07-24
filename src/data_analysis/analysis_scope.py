@@ -1,3 +1,7 @@
+"""
+This file contains the analysis scope for each function of the Spotify data
+"""
+
 from enum import Enum
 
 from factoring_tools import spotify_glossary as glossary

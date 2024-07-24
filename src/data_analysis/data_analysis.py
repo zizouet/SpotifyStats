@@ -1,8 +1,12 @@
+"""
+This module contains the functions to analyze the data from Spotify.
+"""
+
 import pandas as pd
 
 from data_analysis import analysis_scope as s
 from factoring_tools import spotify_glossary as glossary
-from factoring_tools import time_formatting as format
+from factoring_tools import time_formatting as time_format
 from  report_generation import pdf_generation as pdf
 
 
@@ -48,7 +52,7 @@ def __most_listened(data, columns, item_analyzed, number_of_items=1):
     """
     return (
         round(
-            format.ms_to_hours(
+            time_format.ms_to_hours(
                 data[columns]
                 .groupby(item_analyzed)
                 .sum()
@@ -129,7 +133,7 @@ def listening_time(data):
     Returns:
         _type_: Int
     """
-    return int(round(format.ms_to_hours(data[glossary.TIME_LISTENED].sum())))
+    return int(round(time_format.ms_to_hours(data[glossary.TIME_LISTENED].sum())))
 
 
 def listening_time_of_day(data):
@@ -142,9 +146,9 @@ def listening_time_of_day(data):
     Returns:
         pandas df: array for listening time during each hour of the day.
     """
-    hours = data[glossary.TIME_OF_DAY].apply(format.extract_hour_from_timestamp)
+    hours = data[glossary.TIME_OF_DAY].apply(time_format.extract_hour_from_timestamp)
     return round(
-        format.ms_to_hours(
+        time_format.ms_to_hours(
             data[s.AnalysisScope.LISTENING_TIME_OF_DAY.value]
             .assign(hour=hours)
             .groupby("hour")
