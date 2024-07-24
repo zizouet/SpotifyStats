@@ -6,8 +6,13 @@ import factoring_tools.spotify_glossary as glossary
 
 
 def loading_data_from(folder_path):
-    """
-    This function loads the data from the data folder.
+    """This function loads the data from the data folder.
+
+    Args:
+        folder_path (String): folder/file path to the data
+
+    Returns:
+        pandas df: the dataframe from the JSON data
     """
    # Load all the json from a directory
     try : 

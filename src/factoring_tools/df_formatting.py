@@ -1,10 +1,17 @@
 
 
 def df_to_list_of_list(df, index = True, header = True):
-    """
-    This function converts a pandas dataframe to a list of list.
+    """This function converts a pandas dataframe to a list of list.
     Index keeps the index of the dataframe
     Header keeps the header of the dataframe.
+
+    Args:
+        df (pandas df): data
+        index (bool, optional): if you want to keep the index column. Defaults to True.
+        header (bool, optional): if you want to keep the header row. Defaults to True.
+
+    Returns:
+        Python List[]: the array for the dataframe.
     """
     formatted = []
     if header:
