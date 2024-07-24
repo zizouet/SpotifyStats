@@ -1,9 +1,9 @@
 import pandas as pd
 
-import data_analysis.analysis_scope as s
-import factoring_tools.spotify_glossary as glossary
-import factoring_tools.time_formatting as format
-import report_generation.pdf_generation as pdf
+from data_analysis import analysis_scope as s
+from factoring_tools import spotify_glossary as glossary
+from factoring_tools import time_formatting as format
+from  report_generation import pdf_generation as pdf
 
 
 def full_analysis(data, number_of_items=10):

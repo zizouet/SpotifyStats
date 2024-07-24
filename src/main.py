@@ -1,5 +1,5 @@
-import data_analysis.data_analysis as data_analysis
-import input_handling.loading_input as loading_input
+from data_analysis import data_analysis as data_analysis
+from input_handling import loading_input as loading_input
 
 
 def main():

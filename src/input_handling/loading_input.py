@@ -3,7 +3,7 @@ import os
 
 import pandas as pd
 
-import factoring_tools.spotify_glossary as glossary
+from factoring_tools import spotify_glossary as glossary
 
 
 def loading_data_from(folder_path):

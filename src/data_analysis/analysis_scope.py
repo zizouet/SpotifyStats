@@ -1,6 +1,6 @@
 from enum import Enum
 
-import factoring_tools.spotify_glossary as glossary
+from factoring_tools import spotify_glossary as glossary
 
 
 # Description: This file contains the analysis scope of the Spotify data

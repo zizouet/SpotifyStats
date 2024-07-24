@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-import factoring_tools.spotify_glossary as glossary
+from factoring_tools import spotify_glossary as glossary
 
 PLOT_FILENAME = "output/listening_time_bar_chart.png"
 
