@@ -5,8 +5,7 @@ This module generates a PDF report with the given Spotify data.
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import (Image, Paragraph, SimpleDocTemplate, Spacer,
-                                Table)
+from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer, Table
 
 import data_visualization.time_of_day as dv
 import factoring_tools.df_formatting as df_format

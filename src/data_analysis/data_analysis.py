@@ -7,11 +7,13 @@ import report_generation.pdf_generation as pdf
 
 
 def full_analysis(data, number_of_items=10):
-    """Run the full analysis of the data and generate a pdf file with the results.
+    """
+    Run the full analysis of the data and generate a pdf file with the results.
 
     Args:
         data (pandas df): data to analyze
-        number_of_items (int, optional): number of items to output. Defaults to 10.
+        number_of_items (int, optional): number of items to output
+                                         Defaults to 10.
     """
     top_artist = most_listened_artist(data, number_of_items)
     top_album = most_listened_album(data, number_of_items)
@@ -30,11 +32,14 @@ def full_analysis(data, number_of_items=10):
 
 
 def __most_listened(data, columns, item_analyzed, number_of_items=1):
-    """This function is a polymorphic function that returns the most listened artist, album, or song.
+    """
+    This function is a polymorphic function
+    that returns the most listened artist, album, or song.
 
     Args:
         data (pandas df): data to analyze
-        columns (data columns): minimum set of column used for running the analysis, used for optimization
+        columns (data columns): minimum set of column used for running the analysis,
+                                 used for optimization
         item_analyzed (data column): the column you're gonna group by with.
         number_of_items (int, optional): number of items you want to output. Defaults to 1.
 
@@ -57,6 +62,17 @@ def __most_listened(data, columns, item_analyzed, number_of_items=1):
 
 
 def most_listened_artist(data, number_of_artists=1):
+    """
+    This function returns the most listened artists.
+
+    Args:
+        data (pandas df): data
+        number_of_artists (int, optional): number of artists you want to output.
+                                            Defaults to 1.
+
+    Returns:
+        pandas df: the number of items most listened artists.
+    """
     return __most_listened(
         data,
         s.AnalysisScope.MOST_LISTENED_ARTIST.value,
@@ -66,6 +82,17 @@ def most_listened_artist(data, number_of_artists=1):
 
 
 def most_listened_album(data, number_of_albums=1):
+    """
+    This function returns the most listened albums.
+
+    Args:
+        data (pandas df): data
+        number_of_albums (int, optional): numbers of albums you want to output.
+                                         Defaults to 1.
+
+    Returns:
+        pandas df: the number of items most listened albums.
+    """
     return __most_listened(
         data,
         s.AnalysisScope.MOST_LISTENED_ALBUM.value,
@@ -75,6 +102,16 @@ def most_listened_album(data, number_of_albums=1):
 
 
 def most_listened_song(data, number_of_songs=1):
+    """This function returns the most listened songs.
+
+    Args:
+        data (pandas df): data
+        number_of_songs (int, optional): number of songs you want to output.
+                                         Defaults to 1.
+
+    Returns:
+        pandas df: the number of items most listened songs.
+    """
     return __most_listened(
         data,
         s.AnalysisScope.MOST_LISTENED_SONG.value,
@@ -145,7 +182,8 @@ def most_skipped_songs(data, number_of_songs=10):
 
     Args:
         data (pandas df): data
-        number_of_songs (int, optional): number of songs you want to output. Defaults to 10.
+        number_of_songs (int, optional): number of songs you want to output.
+                                        Defaults to 10.
 
     Returns:
         pandas df: array for the most skipped songs
