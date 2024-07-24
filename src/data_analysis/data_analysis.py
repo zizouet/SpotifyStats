@@ -9,7 +9,7 @@ import report_generation.pdf_generation as pdf
 
 def full_analysis(data, number_of_items = 10):
     """
-    This function is a polymorphic function that returns the most listened artist, album, or song.
+    This function runs the full analysis.
     """
     top_artist = most_listened_artist(data, number_of_items).rename(columns={glossary.time_listened:"Time Listened (in hours)"})
     top_album = most_listened_album(data, number_of_items)
@@ -54,7 +54,7 @@ def listening_time_of_day(data):
     hours = data[glossary.time_of_day].apply(format.extract_hour_from_timestamp)
     return round(format.ms_to_hours(data[s.AnalysisScope.LISTENING_TIME_OF_DAY.value].assign(hour=hours).groupby('hour').sum().sort_values('hour', ascending=True))).rename(columns= glossary.df_cols_to_name)
 
-def best_songs_through_time(data):
+def best_weeks_song(data):
     """
     Best week song during the last weeks 
     """
