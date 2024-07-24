@@ -1,0 +1,14 @@
+# Ignore the .vscode directory
+.vscode/
+
+# Ignore all files inside the data directory
+data/*
+
+# Ignore all files inside the output directory
+output/*
+
+# Ignore Python cache directories
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
