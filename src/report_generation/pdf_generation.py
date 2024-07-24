@@ -75,7 +75,7 @@ def generate_pdf(
     )
     append_table(elements, "10 Most Skipped Songs", skipped_songs, heading_style, ts)
 
-    img = Image(dv.plot_filename, width=450, height=300)
+    img = Image(dv.PLOT_FILENAME, width=450, height=300)
     elements.append(img)
 
     doc.build(elements)

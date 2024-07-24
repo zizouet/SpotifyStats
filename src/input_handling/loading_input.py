@@ -28,7 +28,7 @@ def loading_data_from(folder_path):
             df = pd.read_json(file)
             for col in df:
                 # Check JSON have a good format else skip the file
-                if col not in glossary.df_cols:
+                if col not in glossary.DF_COLS:
                     print(f"Wrong JSON format in {file}")
                     print(f"Column {col} not in glossary.df_cols")
                     continue

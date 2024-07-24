@@ -47,12 +47,12 @@ def __most_listened(data, columns, item_analyzed, number_of_items=1):
                 data[columns]
                 .groupby(item_analyzed)
                 .sum()
-                .sort_values(glossary.time_listened, ascending=False)
+                .sort_values(glossary.TIME_LISTENED, ascending=False)
                 .head(number_of_items)
             )
         )
         .reset_index()
-        .rename(columns=glossary.df_cols_to_name)
+        .rename(columns=glossary.DF_COLS_TO_NAME)
     )
 
 
@@ -60,7 +60,7 @@ def most_listened_artist(data, number_of_artists=1):
     return __most_listened(
         data,
         s.AnalysisScope.MOST_LISTENED_ARTIST.value,
-        glossary.artist,
+        glossary.ARTIST,
         number_of_artists,
     )
 
@@ -69,18 +69,18 @@ def most_listened_album(data, number_of_albums=1):
     return __most_listened(
         data,
         s.AnalysisScope.MOST_LISTENED_ALBUM.value,
-        [glossary.album, glossary.artist],
+        [glossary.ALBUM, glossary.ARTIST],
         number_of_albums,
-    ).rename(columns=glossary.df_cols_to_name)
+    ).rename(columns=glossary.DF_COLS_TO_NAME)
 
 
 def most_listened_song(data, number_of_songs=1):
     return __most_listened(
         data,
         s.AnalysisScope.MOST_LISTENED_SONG.value,
-        [glossary.song, glossary.artist],
+        [glossary.SONG, glossary.ARTIST],
         number_of_songs,
-    ).rename(columns=glossary.df_cols_to_name)
+    ).rename(columns=glossary.DF_COLS_TO_NAME)
 
 
 def listening_time(data):
@@ -92,7 +92,7 @@ def listening_time(data):
     Returns:
         _type_: Int
     """
-    return int(round(format.ms_to_hours(data[glossary.time_listened].sum())))
+    return int(round(format.ms_to_hours(data[glossary.TIME_LISTENED].sum())))
 
 
 def listening_time_of_day(data):
@@ -105,7 +105,7 @@ def listening_time_of_day(data):
     Returns:
         pandas df: array for listening time during each hour of the day.
     """
-    hours = data[glossary.time_of_day].apply(format.extract_hour_from_timestamp)
+    hours = data[glossary.TIME_OF_DAY].apply(format.extract_hour_from_timestamp)
     return round(
         format.ms_to_hours(
             data[s.AnalysisScope.LISTENING_TIME_OF_DAY.value]
@@ -114,7 +114,7 @@ def listening_time_of_day(data):
             .sum()
             .sort_values("hour", ascending=True)
         )
-    ).rename(columns=glossary.df_cols_to_name)
+    ).rename(columns=glossary.DF_COLS_TO_NAME)
 
 
 def best_weeks_song(data):
@@ -127,14 +127,14 @@ def best_weeks_song(data):
         pandas df: array for the best song during the last weeks
     """
     df = data[s.AnalysisScope.WEEKLY_BEST_SONGS.value].copy(deep=True)
-    df[glossary.time_of_day] = pd.to_datetime(df[glossary.time_of_day])
-    df.set_index(glossary.time_of_day, inplace=True)
+    df[glossary.TIME_OF_DAY] = pd.to_datetime(df[glossary.TIME_OF_DAY])
+    df.set_index(glossary.TIME_OF_DAY, inplace=True)
     weekly_top_songs = df.resample("W").apply(
-        lambda x: x.loc[x[glossary.time_listened].idxmax()]
+        lambda x: x.loc[x[glossary.TIME_LISTENED].idxmax()]
     )
     # Select relevant columns for display
     weekly_top_songs = weekly_top_songs[
-        [glossary.song, glossary.artist, glossary.time_listened]
+        [glossary.SONG, glossary.ARTIST, glossary.TIME_LISTENED]
     ]
 
     return weekly_top_songs
@@ -150,13 +150,13 @@ def most_skipped_songs(data, number_of_songs=10):
     Returns:
         pandas df: array for the most skipped songs
     """
-    data[glossary.skipped] = data[glossary.reason_end] == glossary.reason_end_fwdbtn
+    data[glossary.SKIPPED] = data[glossary.REASON_END] == glossary.REASON_END_FWDBTN
     return (
         data[s.AnalysisScope.MOST_SKIPPED_SONGS.value]
-        .groupby([glossary.song, glossary.artist])
+        .groupby([glossary.SONG, glossary.ARTIST])
         .sum()
-        .sort_values(glossary.skipped, ascending=False)
+        .sort_values(glossary.SKIPPED, ascending=False)
         .head(number_of_songs)
         .reset_index()
-        .rename(columns=glossary.df_cols_to_name)
+        .rename(columns=glossary.DF_COLS_TO_NAME)
     )

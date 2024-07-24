@@ -11,16 +11,16 @@ class AnalysisScope(Enum):
         Enum (class): Enum class
     """
 
-    MOST_LISTENED_ARTIST = [glossary.artist, glossary.time_listened]
-    MOST_LISTENED_ALBUM = [glossary.time_listened, glossary.album, glossary.artist]
-    MOST_LISTENED_SONG = [glossary.song, glossary.time_listened, glossary.artist]
+    MOST_LISTENED_ARTIST = [glossary.ARTIST, glossary.TIME_LISTENED]
+    MOST_LISTENED_ALBUM = [glossary.TIME_LISTENED, glossary.ALBUM, glossary.ARTIST]
+    MOST_LISTENED_SONG = [glossary.SONG, glossary.TIME_LISTENED, glossary.ARTIST]
 
-    LISTENING_TIME = [glossary.time_listened]
-    LISTENING_TIME_OF_DAY = [glossary.time_of_day, glossary.time_listened]
+    LISTENING_TIME = [glossary.TIME_LISTENED]
+    LISTENING_TIME_OF_DAY = [glossary.TIME_OF_DAY, glossary.TIME_LISTENED]
     WEEKLY_BEST_SONGS = [
-        glossary.time_of_day,
-        glossary.time_listened,
-        glossary.song,
-        glossary.artist,
+        glossary.TIME_OF_DAY,
+        glossary.TIME_LISTENED,
+        glossary.SONG,
+        glossary.ARTIST,
     ]
-    MOST_SKIPPED_SONGS = [glossary.song, glossary.artist, glossary.skipped]
+    MOST_SKIPPED_SONGS = [glossary.SONG, glossary.ARTIST, glossary.SKIPPED]

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 
 import factoring_tools.spotify_glossary as glossary
 
-plot_filename = "output/listening_time_bar_chart.png"
+PLOT_FILENAME = "output/listening_time_bar_chart.png"
 
 
 def plot_time_of_day(df):
@@ -13,7 +13,7 @@ def plot_time_of_day(df):
     """
     plt.figure(figsize=(10, 6))
     plt.bar(
-        df.index, df[glossary.df_cols_to_name[glossary.time_listened]], color="skyblue"
+        df.index, df[glossary.DF_COLS_TO_NAME[glossary.TIME_LISTENED]], color="skyblue"
     )
     plt.xlabel("Hour of the Day")
     plt.ylabel("Time Listened (hours)")
@@ -22,5 +22,5 @@ def plot_time_of_day(df):
     plt.xticks(df.index, rotation=45)
 
     # Save the plot as an image file
-    plt.savefig(plot_filename)
+    plt.savefig(PLOT_FILENAME)
     plt.close()

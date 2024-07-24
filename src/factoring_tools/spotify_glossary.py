@@ -1,18 +1,18 @@
 # Description: This file contains the glossary of the Spotify data.
-album = "master_metadata_album_album_name"
-artist = "master_metadata_album_artist_name"
-song = "master_metadata_track_name"
-time_listened = "ms_played"
-time_of_day = "ts"
-skipped = "skipped"  # UNUSED/DEPRECATED
+ALBUM = "master_metadata_album_album_name"
+ARTIST = "master_metadata_album_artist_name"
+SONG = "master_metadata_track_name"
+TIME_LISTENED = "ms_played"
+TIME_OF_DAY = "ts"
+SKIPPED = "skipped"  # UNUSED/DEPRECATED
 
 ### REASON END AND RELATED VOCABULARY
-reason_end = "reason_end"
-reason_end_backbtn = "backbtn"
-reason_end_fwdbtn = "fwdbtn"
+REASON_END = "reason_end"
+REASON_END_BACKBTN = "backbtn"
+REASON_END_FWDBTN = "fwdbtn"
 
 
-df_cols = [
+DF_COLS = [
     "ms_played",
     "master_metadata_track_name",
     "master_metadata_album_album_name",
@@ -36,12 +36,12 @@ df_cols = [
     "username",
 ]
 
-df_cols_to_name = {
-    time_listened: "Time listened",
-    song: "Song",
-    album: "Album",
-    artist: "Artist",
-    time_of_day: "Timestamp",
+DF_COLS_TO_NAME = {
+    TIME_LISTENED: "Time listened",
+    SONG: "Song",
+    ALBUM: "Album",
+    ARTIST: "Artist",
+    TIME_OF_DAY: "Timestamp",
     "conn_country": "Country",
     "episode_name": "Episode Name",
     "episode_show_name": "Episode Show Name",
