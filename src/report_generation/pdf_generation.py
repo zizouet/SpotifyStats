@@ -1,5 +1,4 @@
 from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Spacer, Image
@@ -8,7 +7,13 @@ import data_visualization.time_of_day as dv
 import data_analysis as da
 import factoring_tools.df_formatting as df_format
 
-def generate_pdf(filename, most_listened_artist=None, most_listened_album=None, most_listened_song=None, listening_time=None, listening_time_of_day=None, skipped_songs = None):
+def generate_pdf(filename,
+                most_listened_artist=None,
+                most_listened_album=None,
+                most_listened_song=None,
+                listening_time=None,
+                listening_time_of_day=None,
+                skipped_songs = None):
     """ This function generates a pdf file with the data provided.
 
     Args:

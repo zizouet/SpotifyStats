@@ -1,5 +1,4 @@
 from enum import Enum
-import pandas as pd
 import factoring_tools.spotify_glossary as glossary
 
 # Description: This file contains the analysis scope of the Spotify data for each function in data_analysis.py
