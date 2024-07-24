@@ -1,13 +1,12 @@
-
 import pandas as pd
-import data_analysis.analysis_scope as s 
+
+import data_analysis.analysis_scope as s
 import factoring_tools.spotify_glossary as glossary
 import factoring_tools.time_formatting as format
 import report_generation.pdf_generation as pdf
 
 
-
-def full_analysis(data, number_of_items = 10):
+def full_analysis(data, number_of_items=10):
     """Run the full analysis of the data and generate a pdf file with the results.
 
     Args:
@@ -18,15 +17,20 @@ def full_analysis(data, number_of_items = 10):
     top_album = most_listened_album(data, number_of_items)
     top_song = most_listened_song(data, number_of_items)
     top_skipped_songs = most_skipped_songs(data)
-    
+
+    pdf.generate_pdf(
+        "output/SpotifyDataAnalysis.pdf",
+        most_listened_artist=top_artist,
+        most_listened_album=top_album,
+        most_listened_song=top_song,
+        listening_time=listening_time(data),
+        listening_time_of_day=listening_time_of_day(data),
+        skipped_songs=top_skipped_songs,
+    )
 
 
-    pdf.generate_pdf("output/SpotifyDataAnalysis.pdf", most_listened_artist=top_artist, most_listened_album=top_album, most_listened_song=top_song, listening_time=listening_time(data), listening_time_of_day=listening_time_of_day(data),skipped_songs=top_skipped_songs)
-    
-    
-    
 def __most_listened(data, columns, item_analyzed, number_of_items=1):
-    """ This function is a polymorphic function that returns the most listened artist, album, or song.
+    """This function is a polymorphic function that returns the most listened artist, album, or song.
 
     Args:
         data (pandas df): data to analyze
@@ -37,30 +41,50 @@ def __most_listened(data, columns, item_analyzed, number_of_items=1):
     Returns:
         pandas df: output the number of items most listened songs, albums, or artists.
     """
-    return round(format.ms_to_hours(data[columns].groupby(item_analyzed).sum().sort_values(glossary.time_listened, ascending=False).head(number_of_items))).reset_index().rename(columns = glossary.df_cols_to_name)
+    return (
+        round(
+            format.ms_to_hours(
+                data[columns]
+                .groupby(item_analyzed)
+                .sum()
+                .sort_values(glossary.time_listened, ascending=False)
+                .head(number_of_items)
+            )
+        )
+        .reset_index()
+        .rename(columns=glossary.df_cols_to_name)
+    )
+
 
 def most_listened_artist(data, number_of_artists=1):
-    return __most_listened(data, s.AnalysisScope.MOST_LISTENED_ARTIST.value, glossary.artist, number_of_artists)
+    return __most_listened(
+        data,
+        s.AnalysisScope.MOST_LISTENED_ARTIST.value,
+        glossary.artist,
+        number_of_artists,
+    )
+
 
 def most_listened_album(data, number_of_albums=1):
-    return (__most_listened(data,
-                            s.AnalysisScope.MOST_LISTENED_ALBUM.value,
-                            [glossary.album, glossary.artist],
-                            number_of_albums)
-                            .rename(columns=glossary.df_cols_to_name))
-    
+    return __most_listened(
+        data,
+        s.AnalysisScope.MOST_LISTENED_ALBUM.value,
+        [glossary.album, glossary.artist],
+        number_of_albums,
+    ).rename(columns=glossary.df_cols_to_name)
+
 
 def most_listened_song(data, number_of_songs=1):
-    return (__most_listened(data,
-                            s.AnalysisScope.MOST_LISTENED_SONG.value,
-                            [glossary.song,glossary.artist],
-                            number_of_songs)
-                            .rename(columns=glossary.df_cols_to_name))
-    
+    return __most_listened(
+        data,
+        s.AnalysisScope.MOST_LISTENED_SONG.value,
+        [glossary.song, glossary.artist],
+        number_of_songs,
+    ).rename(columns=glossary.df_cols_to_name)
 
 
 def listening_time(data):
-    """ This function returns the total time listened to music.
+    """This function returns the total time listened to music.
 
     Args:
         data (pandas df): data
@@ -69,6 +93,7 @@ def listening_time(data):
         _type_: Int
     """
     return int(round(format.ms_to_hours(data[glossary.time_listened].sum())))
+
 
 def listening_time_of_day(data):
     """This function returns the listening time during each hour of the day.
@@ -81,17 +106,19 @@ def listening_time_of_day(data):
         pandas df: array for listening time during each hour of the day.
     """
     hours = data[glossary.time_of_day].apply(format.extract_hour_from_timestamp)
-    return (round(
+    return round(
         format.ms_to_hours(
             data[s.AnalysisScope.LISTENING_TIME_OF_DAY.value]
             .assign(hour=hours)
-            .groupby('hour')
+            .groupby("hour")
             .sum()
-            .sort_values('hour', ascending=True)))
-            .rename(columns= glossary.df_cols_to_name))
+            .sort_values("hour", ascending=True)
+        )
+    ).rename(columns=glossary.df_cols_to_name)
+
 
 def best_weeks_song(data):
-    """Best week song during the last weeks 
+    """Best week song during the last weeks
 
     Args:
         data (pandas df): data
@@ -101,17 +128,19 @@ def best_weeks_song(data):
     """
     df = data[s.AnalysisScope.WEEKLY_BEST_SONGS.value].copy(deep=True)
     df[glossary.time_of_day] = pd.to_datetime(df[glossary.time_of_day])
-    df.set_index(glossary.time_of_day,inplace=True)
-    weekly_top_songs = df.resample('W').apply(lambda x: x.loc[x[glossary.time_listened].idxmax()])
+    df.set_index(glossary.time_of_day, inplace=True)
+    weekly_top_songs = df.resample("W").apply(
+        lambda x: x.loc[x[glossary.time_listened].idxmax()]
+    )
     # Select relevant columns for display
-    weekly_top_songs = (weekly_top_songs[[glossary.song,
-                                        glossary.artist,
-                                        glossary.time_listened]])
+    weekly_top_songs = weekly_top_songs[
+        [glossary.song, glossary.artist, glossary.time_listened]
+    ]
 
     return weekly_top_songs
 
 
-def most_skipped_songs(data, number_of_songs = 10):
+def most_skipped_songs(data, number_of_songs=10):
     """This function returns the most skipped songs.
 
     Args:
@@ -122,13 +151,12 @@ def most_skipped_songs(data, number_of_songs = 10):
         pandas df: array for the most skipped songs
     """
     data[glossary.skipped] = data[glossary.reason_end] == glossary.reason_end_fwdbtn
-    return (data[s.AnalysisScope.MOST_SKIPPED_SONGS.value]
+    return (
+        data[s.AnalysisScope.MOST_SKIPPED_SONGS.value]
         .groupby([glossary.song, glossary.artist])
         .sum()
         .sort_values(glossary.skipped, ascending=False)
         .head(number_of_songs)
         .reset_index()
-        .rename(columns=glossary.df_cols_to_name))
-
-
-
+        .rename(columns=glossary.df_cols_to_name)
+    )

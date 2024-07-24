@@ -1,20 +1,23 @@
-from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, Spacer, Image
-import data_visualization.time_of_day as dv
+from reportlab.platypus import Image, Paragraph, SimpleDocTemplate, Spacer, Table
 
 import data_analysis as da
+import data_visualization.time_of_day as dv
 import factoring_tools.df_formatting as df_format
 
-def generate_pdf(filename,
-                most_listened_artist=None,
-                most_listened_album=None,
-                most_listened_song=None,
-                listening_time=None,
-                listening_time_of_day=None,
-                skipped_songs = None):
-    """ This function generates a pdf file with the data provided.
+
+def generate_pdf(
+    filename,
+    most_listened_artist=None,
+    most_listened_album=None,
+    most_listened_song=None,
+    listening_time=None,
+    listening_time_of_day=None,
+    skipped_songs=None,
+):
+    """This function generates a pdf file with the data provided.
 
     Args:
         filename (String): path to save the file
@@ -32,33 +35,42 @@ def generate_pdf(filename,
     doc = SimpleDocTemplate(filename, pagesize=letter)
     styles = getSampleStyleSheet()
     elements = []
-    elements.append(Paragraph("Spotify Data Analysis", styles['Title']))
+    elements.append(Paragraph("Spotify Data Analysis", styles["Title"]))
 
-    elements.append(Spacer(1, 30)) 
+    elements.append(Spacer(1, 30))
     dv.plot_time_of_day(listening_time_of_day)
-    
 
-    #get the most listened artists from the parameters and display it
-    ts = [('ALIGN', (1,1), (-1,-1), 'CENTER'),
-     ('LINEABOVE', (0,0), (-1,0), 1, colors.black),
-     ('LINEBELOW', (0,0), (-1,0), 1, colors.black),
-     ('FONT', (0,0), (-1,0), 'Times-Bold'),
-     ('LINEBELOW', (0,-1), (-1,-1), 1, colors.black),
-     ('TEXTCOLOR',(0,0),(1,-1),colors.black)]
-    
+    # get the most listened artists from the parameters and display it
+    ts = [
+        ("ALIGN", (1, 1), (-1, -1), "CENTER"),
+        ("LINEABOVE", (0, 0), (-1, 0), 1, colors.black),
+        ("LINEBELOW", (0, 0), (-1, 0), 1, colors.black),
+        ("FONT", (0, 0), (-1, 0), "Times-Bold"),
+        ("LINEBELOW", (0, -1), (-1, -1), 1, colors.black),
+        ("TEXTCOLOR", (0, 0), (1, -1), colors.black),
+    ]
+
     if listening_time is not None:
-        elements.append(Paragraph("Total Listening Time", styles['Heading1']))
-        elements.append(Paragraph(f"{listening_time} hours", styles['Normal']))
-        elements.append(Spacer(1, 25)) 
-    
-    heading_style = styles['Heading1']
-    append_table(elements,"10 Most Listened Artists", most_listened_artist, heading_style,ts)
-    append_table(elements,most_listened_album,"10 Most Listened Albums", heading_style,ts)
-    append_table(elements,most_listened_song,"10 Most Listened Songs", heading_style,ts)
-    append_table(elements,skipped_songs,"10 Most Skipped Songs", heading_style,ts)
-    append_table(elements, "10 Most Listened Artists", most_listened_artist, heading_style,ts)
+        elements.append(Paragraph("Total Listening Time", styles["Heading1"]))
+        elements.append(Paragraph(f"{listening_time} hours", styles["Normal"]))
+        elements.append(Spacer(1, 25))
 
-    img = Image(dv.plot_filename, width = 450, height = 300)
+    heading_style = styles["Heading1"]
+    append_table(
+        elements, "10 Most Listened Artists", most_listened_artist, heading_style, ts
+    )
+    append_table(
+        elements, most_listened_album, "10 Most Listened Albums", heading_style, ts
+    )
+    append_table(
+        elements, most_listened_song, "10 Most Listened Songs", heading_style, ts
+    )
+    append_table(elements, skipped_songs, "10 Most Skipped Songs", heading_style, ts)
+    append_table(
+        elements, "10 Most Listened Artists", most_listened_artist, heading_style, ts
+    )
+
+    img = Image(dv.plot_filename, width=450, height=300)
     elements.append(img)
 
     doc.build(elements)
@@ -67,7 +79,7 @@ def generate_pdf(filename,
 
 
 def append_table(elements, title, data, title_style, table_style):
-    """ This function appends a title and data to the elements list if the data is not None.
+    """This function appends a title and data to the elements list if the data is not None.
 
     Args:
         elements (list): element list to append to
@@ -83,5 +95,5 @@ def append_table(elements, title, data, title_style, table_style):
         elements.append(Paragraph(title, title_style))
         t = Table(df_format.df_to_list_of_list(data), style=table_style)
         elements.append(t)
-        elements.append(Spacer(1, 25)) 
+        elements.append(Spacer(1, 25))
     return elements

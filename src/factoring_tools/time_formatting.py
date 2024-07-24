@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def ms_to_hours(ms):
     """Convert milliseconds to hours.
 
@@ -10,6 +11,7 @@ def ms_to_hours(ms):
         pandas df: data in hours
     """
     return ms / 1000 / 60 / 60
+
 
 def extract_hour_from_timestamp(timestamp):
     """Extract the hour from a timestamp.
