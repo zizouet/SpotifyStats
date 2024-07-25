@@ -9,7 +9,7 @@ def main():
     main function to run the program.
     """
     # load data
-    df = li.loading_data_from("data/MesDatas")
+    df = li.loading_data_from("data/")
     # check if data is loaded
     if df is None:
         print("No data to analyze")
