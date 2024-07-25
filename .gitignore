@@ -3,9 +3,8 @@
 
 # Ignore all files inside the data directory
 data/*
+!data/spotify_data.json
 
-# Ignore all files inside the output directory
-output/*
 
 # Ignore Python cache directories
 __pycache__/
