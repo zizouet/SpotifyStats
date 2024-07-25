@@ -70,6 +70,8 @@ Here are some examples of the data and insights you can get from SpotifyStats:
 - **Listening Time of Day**: Analyze what time of day you listen to music the most.
 - **Most Skipped Songs**: Find out which songs you skip the most.
 
+And much more to come ! Don't hesitate to tell me your best data ideas !
+
 ## License
 
 This project is licensed under the GLP V3.0 License - see the [LICENSE](LICENSE) file for details.
