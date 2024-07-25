@@ -50,7 +50,7 @@ SpotifyStats is an application designed to analyze your Spotify listening habits
 
 ## Usage
 
-1. Place your Spotify data files in the `data/` directory, the data should be .json files from the spotify all-time  detailled report.
+1. Place your Spotify data files in the `data/` directory, the data should be .json files from the spotify [extended streaming history](https://www.spotify.com/account/privacy/).
 
 2. Run the main routine to generate the analysis and report:
     ```bash
