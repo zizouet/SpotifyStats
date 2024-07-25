@@ -1,6 +1,6 @@
 # SpotifyStats
 
-SpotifyStats is an application designed to analyze your Spotify listening habits and generate insightful reports. Discover who your favorite artist is, how much time you spend listening to each artist, and explore other cool features.
+SpotifyStats is an application designed to analyze your Spotify listening habits and generate insightful reports. Discover what is the song you hate the most, how much time you spend listening to each artist, and explore other cool features.
 
 ## Table of Contents
 
